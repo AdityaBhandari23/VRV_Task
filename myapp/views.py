@@ -62,3 +62,19 @@ class ArticleDetailView(generics.RetrieveUpdateDestroyAPIView):
     
     def get_queryset(self):
         return Article.objects.filter(author=self.request.user)
+    
+class LogoutView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request):
+        try:
+            refresh_token = request.data.get("refresh")
+            if not refresh_token:
+                return Response({"error": "Refresh token is required."}, status=400)
+
+            token = RefreshToken(refresh_token)
+            token.blacklist()  # Mark the token as blacklisted
+
+            return Response({"message": "Logged out successfully."}, status=200)
+        except Exception as e:
+            return Response({"error": "Invalid token or something went wrong."}, status=400)    

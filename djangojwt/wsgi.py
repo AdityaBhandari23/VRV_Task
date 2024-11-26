@@ -14,3 +14,9 @@ from django.core.wsgi import get_wsgi_application
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'djangojwt.settings')
 
 application = get_wsgi_application()
+
+#admin '''
+# admin5,admin5
+# user
+#john, sins12345
+# '''

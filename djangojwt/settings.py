@@ -39,8 +39,17 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'rest_framework_simplejwt',
-    'myapp'
+    'myapp',
+    'rest_framework_simplejwt.token_blacklist',
 ]
+
+SIMPLE_JWT = {
+    "AUTH_TOKEN_CLASSES": (
+        "rest_framework_simplejwt.tokens.AccessToken",
+    ),
+    "TOKEN_BLACKLIST_ENABLED": True,  # Enable token blacklisting
+    "TOKEN_BLACKLIST_CHECKS_ON_ACCESS": True,# Ensure access tokens are validated against blacklist
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
