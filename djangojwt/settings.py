@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 from pathlib import Path
+from datetime import timedelta
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -43,12 +44,25 @@ INSTALLED_APPS = [
     'rest_framework_simplejwt.token_blacklist',
 ]
 
+# SIMPLE_JWT = {
+#     "AUTH_TOKEN_CLASSES": (
+#         "rest_framework_simplejwt.tokens.AccessToken",
+#     ),
+#     "TOKEN_BLACKLIST_ENABLED": True,  # Enable token blacklisting
+#     "TOKEN_BLACKLIST_CHECKS_ON_ACCESS": True,# Ensure access tokens are validated against blacklist
+# }
+
 SIMPLE_JWT = {
+    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=5),  # Adjust as needed
+    "REFRESH_TOKEN_LIFETIME": timedelta(days=1),
+    "ROTATE_REFRESH_TOKENS": False,
+    "BLACKLIST_AFTER_ROTATION": True,
     "AUTH_TOKEN_CLASSES": (
         "rest_framework_simplejwt.tokens.AccessToken",
+        "rest_framework_simplejwt.tokens.RefreshToken",
     ),
-    "TOKEN_BLACKLIST_ENABLED": True,  # Enable token blacklisting
-    "TOKEN_BLACKLIST_CHECKS_ON_ACCESS": True,# Ensure access tokens are validated against blacklist
+    "TOKEN_BLACKLIST_ENABLED": True,
+    "TOKEN_BLACKLIST_CHECKS_ON_ACCESS": True,
 }
 
 MIDDLEWARE = [
